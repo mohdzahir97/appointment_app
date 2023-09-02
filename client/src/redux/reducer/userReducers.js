@@ -165,6 +165,7 @@ export const userProfileDetailsReducer = (state = { user: {} }, action) => {
                 loading: false,
                 isAuthenticated: true,
                 user: action.payload,
+                profilechangeflag:true
             };
 
         case PROFILE_DETAILS_FAIL:

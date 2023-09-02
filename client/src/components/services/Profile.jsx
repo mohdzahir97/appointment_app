@@ -29,15 +29,18 @@ export const Profile = () => {
 
     const [isActiveState, setIsActiveState] = useState(false)
 
-    const { loading, error, user, isAuthenticated } = useSelector((state) => state.userProfileDetailsReducer)
+    const { loading, error, user, isAuthenticated, profilechangeflag } = useSelector((state) => state.userProfileDetailsReducer)
+
+
+    const data = useSelector((state) => state.userUpdateProfileDetailsReducer)
+
+
+
 
 
     const handleInput = (e) => {
         try {
             const { name, value } = e.target;
-
-            console.log(name, value);
-
             setInputData({ ...inputData, [name]: value })
 
         } catch (error) {
@@ -48,8 +51,8 @@ export const Profile = () => {
 
     const onSubmitUpdateProfile = (e) => {
         e.preventDefault()
-        console.log(inputData);
         dispatch(profilerUpdateAction(inputData))
+
 
         if (!error) {
             alert.success(AlertMessage.SUCESS)
@@ -59,17 +62,16 @@ export const Profile = () => {
 
     useEffect(() => {
 
-
         if (error) {
             alert.error(error)
             dispatch(clearErrors());
         }
-
         dispatch(getUseProfilerDetails())
         setInputData(user)
+        setInputData(data.user)
 
 
-    }, [user])
+    }, [data.user])
 
 
     const hanldeActiveDeactive = async (e) => {
